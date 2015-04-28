@@ -56,8 +56,8 @@
   .mouth{position:absolute;left:18px;top:39px;width:54px;height:5px;stroke-width:3px;}
   .dabai-bd{position:absolute;left:32px;top:69px;}
   .body-main{width:280px;height:330px;position:relative;}
-  .warm-box{width:280px;height:330px;}
-  .warm .warm-box{background:-webkit-radial-gradient(center,rgb(255,207,132), rgba(255,0,0,0) 66%);-webkit-animation:warm 1.5s ease-out both;position:absolute;left:0;top:0;}
+  .warm-box{width:280px;height:330px;position:absolute;left:0;top:0;}
+  .warm .warm-box{background:-webkit-radial-gradient(center,rgb(255,207,132), rgba(255,0,0,0) 66%);-webkit-animation:warm 1.5s ease-out both;}
   .body-svg{width:280px;height:330px;stroke-width:2px;}
   .hand-l,.hand-r{position:absolute;}
   .hand-l{left:-32px;top:12px;}
@@ -81,7 +81,7 @@
         <i class="eye-r"></i>
       </div>
     </div>
-    <div class="dabai-bd" id="body">
+    <div class="dabai-bd">
       <div class="hand-l">
         <svg id="svg" class="hand-l-svg">
           <path d="M120 0, C10 40, -25 168, 22 217" stroke="#000" fill="none"></path>
@@ -98,7 +98,7 @@
           <path d="M178 0, Q265 55, 278 226" stroke="#000" fill="none"></path>
           <path d="M278 226, Q282 337, 140 328" stroke="#000" fill="none"></path>
         </svg>
-        <div class="warm-box"></div>
+        <div class="warm-box" id="warm"></div>
         <div class="badge" id="badge">
           <svg id="svg" class="badge-svg">
             <path d="M1 18, L8 15, 8 8, 18 8, 18 15, 25 18" stroke="#000" fill="none"></path>
@@ -128,16 +128,17 @@
     </div>
   </div>
   <script type="text/javascript">
-  var doc = document, animating = false, body = doc.querySelector('#body'),
+  var doc = document, animating = false, warm = doc.querySelector('#warm'),
       head = doc.querySelector('#head'), badge = doc.querySelector('#badge');
-  body.addEventListener('click', function() {
-    !animating && doc.body.classList.add('warm');
+  warm.addEventListener('click', function() {
+    if (!animating) {
+      doc.body.classList.add('warm');
+    }
   });
   head.addEventListener('click', function() {
     !animating && doc.body.classList.add('blink');
   });
   badge.addEventListener('click', function() {
-    console.log('click');
     !animating && doc.body.classList.add('shake');
   });
   doc.body.addEventListener('webkitAnimationStart', function() {
